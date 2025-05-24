@@ -1,0 +1,41 @@
+#buttontag{
+    height: 40px;
+    width: 150px;
+}
+.access-header{
+    margin-left: 50px;
+    margin-top: 30px;
+}
+.permission{
+    margin-right: 80px;
+}
+.tag-manager .tag {
+    display: inline-block;
+    background: #e7ecfc;
+    color: #486693;
+    border-radius: 4px;
+    padding: 2px 9px;
+    margin: 0 8px 5px 0;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.tag-section{
+    margin-left: 20px;
+    padding-left: 30px;
+}
+.inner-tag{
+    padding-left: 50px;
+}
+.list-group li{
+
+  border-left: 4px solid #1967d2;
+  background: #f5faff;
+
+}
+.manage-header{
+    font-size: 30px;
+}
+.manage-header .value{
+     color: #6993d2;
+}
