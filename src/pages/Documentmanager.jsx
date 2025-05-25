@@ -17,7 +17,7 @@ const FileUploadForm = ({ folders, onUpload }) => {
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     "image/png",
-    "image/jpeg"
+    "image/jpeg",
   ];
 
   const maxSizeMB = 10;
@@ -28,8 +28,9 @@ const FileUploadForm = ({ folders, onUpload }) => {
       return;
     }
     if (!allowedTypes.includes(file.type)) {
-      alert("Unsupported file type. Please upload a PDF, CSV, XLSX, PPTX, PNG, or JPG file.");
-
+      alert(
+        "Unsupported file type. Please upload a PDF, CSV, XLSX, PPTX, PNG, or JPG file."
+      );
       return;
     }
 
@@ -49,12 +50,11 @@ const FileUploadForm = ({ folders, onUpload }) => {
     } else {
       setError("Title is required.");
     }
-
   };
 
   return (
     <div className="file-upload-form p-3 bg-light rounded shadow-sm">
-      <div className="form-group mb-3 ">
+      <div className="form-group mb-3">
         <input
           type="file"
           className="form-control mb-3"
@@ -71,7 +71,6 @@ const FileUploadForm = ({ folders, onUpload }) => {
             }
           }}
         />
-
         {error && <small className="text-danger">{error}</small>}
       </div>
       <textarea
@@ -108,7 +107,7 @@ const FileUploadForm = ({ folders, onUpload }) => {
 
 // ----- TagManager Component -----
 function TagManager({ document, onUpdateTags }) {
-  const [tagInput, setTagInput] = React.useState("");
+  const [tagInput, setTagInput] = useState("");
 
   const addTag = () => {
     const tag = tagInput.trim();
@@ -154,7 +153,6 @@ function TagManager({ document, onUpdateTags }) {
     </div>
   );
 }
-
 // ----- RBACManager Component -----
 function RBACManager({ acl, users, onUpdateACL }) {
   const [selectedUser, setSelectedUser] = React.useState("");
@@ -385,7 +383,6 @@ const FolderForm = ({ folders, onAddFolder, onEditFolder, onDeleteFolder }) => {
     </div>
   );
 };
-
 // ----- Main Documentmanager Component -----
 const Documentmanager = () => {
   const [documents, setDocuments] = useState([]);
@@ -397,11 +394,11 @@ const Documentmanager = () => {
     { id: "u3", name: "Malak" },
     { id: "u4", name: "Arwa" },
   ]);
+
   const handleDeleteFile = (doc) => {
-
-    setDocuments(prev => prev.filter(d => d.id !== doc.id));
-
+    setDocuments((prev) => prev.filter((d) => d.id !== doc.id));
   };
+
   const onUpload = (file, metadata) => {
     const newDoc = {
       id: uuidv4(),
@@ -422,7 +419,9 @@ const Documentmanager = () => {
   const onUpdateTags = (docId, newTags) => {
     setDocuments((prev) =>
       prev.map((doc) =>
-        doc.id === docId ? { ...doc, metadata: { ...doc.metadata, tags: newTags } } : doc
+        doc.id === docId
+          ? { ...doc, metadata: { ...doc.metadata, tags: newTags } }
+          : doc
       )
     );
   };
@@ -461,7 +460,14 @@ const Documentmanager = () => {
 
   return (
     <div className="container my-4">
-      <h2 className="mb-4 text-primary text-center" style={{ fontFamily: "'Georgia', serif", color: '#4a90e2', fontWeight: 'bold' }}>
+      <h2
+        className="mb-4 text-primary text-center"
+        style={{
+          fontFamily: "'Georgia', serif",
+          color: "#4a90e2",
+          fontWeight: "bold",
+        }}
+      >
         Document Manager
       </h2>
 
@@ -478,9 +484,14 @@ const Documentmanager = () => {
 
         <div className="col-lg-8">
           <h4 className="mb-3">Documents</h4>
-          <ul className="list-group document-list" style={{ maxHeight: "80vh", overflowY: "auto" }}>
+          <ul
+            className="list-group document-list"
+            style={{ maxHeight: "80vh", overflowY: "auto" }}
+          >
             {documents.length === 0 && (
-              <li className="list-group-item">No documents uploaded yet.</li>
+              <li className="list-group-item">
+                No documents uploaded yet.
+              </li>
             )}
             {documents.map((doc) => {
               const isSelected = selectedDocId === doc.id;
@@ -488,10 +499,14 @@ const Documentmanager = () => {
                 <li key={doc.id} className="list-group-item">
                   <div
                     onClick={() =>
-                      setSelectedDocId((prevId) => (prevId === doc.id ? null : doc.id))
+                      setSelectedDocId((prevId) =>
+                        prevId === doc.id ? null : doc.id
+                      )
                     }
                     style={{ cursor: "pointer" }}
-                    className={`p-2 ${isSelected ? "bg-light border border-primary" : ""}`}
+                    className={`p-2 ${
+                      isSelected ? "bg-light border border-primary" : ""
+                    }`}
                   >
                     <strong>{doc.metadata.title}</strong>
                     <br />
@@ -502,7 +517,8 @@ const Documentmanager = () => {
                     <small>
                       Folder:{" "}
                       {doc.metadata.folderId
-                        ? folders.find((f) => f.id === doc.metadata.folderId)?.name || "Unknown"
+                        ? folders.find((f) => f.id === doc.metadata.folderId)
+                            ?.name || "Unknown"
                         : "None"}
                     </small>
                   </div>
@@ -511,7 +527,9 @@ const Documentmanager = () => {
                     <div className="mt-3 bg-white p-3 rounded shadow-sm">
                       <TagManager
                         document={doc}
-                        onUpdateTags={(newTags) => onUpdateTags(doc.id, newTags)}
+                        onUpdateTags={(newTags) =>
+                          onUpdateTags(doc.id, newTags)
+                        }
                       />
                       <hr />
                       <RBACManager
@@ -533,10 +551,6 @@ const Documentmanager = () => {
             })}
           </ul>
         </div>
-
-
-
-
       </div>
     </div>
   );
